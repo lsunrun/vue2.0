@@ -3,8 +3,9 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
+const webpack = require("webpack");
 
-function resolve (dir) {
+function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
@@ -22,12 +23,20 @@ module.exports = {
       ? config.build.assetsPublicPath
       : config.dev.assetsPublicPath
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+      "windows.jQuery": "jquery"
+    })
+  ],
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       '@': resolve('src'),
-      'common':resolve('src/common'),
-      'components':resolve('src/components'),
+      'common': resolve('src/common'),
+      'components': resolve('src/components'),
+      'assets': resolve('src/assets'),
     }
   },
   module: {
@@ -36,6 +45,10 @@ module.exports = {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: vueLoaderConfig
+      },
+      {
+        test: /\.sass$/,
+        loaders: ['style', 'css', 'sass']
       },
       {
         test: /\.js$/,
