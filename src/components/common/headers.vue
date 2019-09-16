@@ -7,8 +7,10 @@
       </a>
       <div>
         <i class="search"></i>
-        <button>登录</button>
-        <button>注册</button>
+        <div class="logout">
+          <button>登录</button>
+          <button>注册</button>
+        </div>
       </div>
     </div>
   </div>
@@ -23,7 +25,9 @@ export default {
   components: {},
   data() {
     //这里存放数据
-    return {};
+    return {
+      login: false
+    };
   },
   //监听属性 类似于data概念
   computed: {},
@@ -49,7 +53,8 @@ export default {
 .header {
   width: 100%;
   height: 90px;
-
+  border-bottom: 1px solid #eff1f3;
+  box-sizing: border-box;
   .header-wrap {
     margin: 0 auto;
     max-width: 1280px;
@@ -82,27 +87,28 @@ export default {
         height: 40px;
         width: 40px;
         cursor: pointer;
-        background: url("../assets/image/normal.png") no-repeat;
+        background: url("../../assets/image/normal.png") no-repeat;
       }
     }
-    button {
-      height: 34px;
-      width: 84px;
-      background: #fff;
-      border: 1px solid #2878ff;
-      font-size: 14px;
-      color: #2878ff;
-      border-radius: 50px;
+    .logout {
+      display: inline-block;
       vertical-align: middle;
-      line-height: 32px;
-    }
-    button:nth-of-type(1) {
       margin-left: 30px;
-    }
-    button:nth-of-type(2) {
-      background: #2878ff;
-      color: #fff;
-      margin-left: 20px;
+      button {
+        height: 34px;
+        width: 84px;
+        background: #fff;
+        border: 1px solid #2878ff;
+        font-size: 14px;
+        color: #2878ff;
+        border-radius: 50px;
+        line-height: 32px;
+      }
+      button:nth-of-type(2) {
+        background: #2878ff;
+        color: #fff;
+        margin-left: 20px;
+      }
     }
   }
 }

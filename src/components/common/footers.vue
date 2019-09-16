@@ -2,7 +2,7 @@
 <template>
   <div class="footer">
     <div class="wrap">
-      <div class="left">
+      <div class="left clearfix">
         <div class="top">
           <img src="@/assets/image/footer_logo.png" alt />
           <span></span>
@@ -14,9 +14,15 @@
           <p>粤公网安备440305020000033号</p>
         </div>
       </div>
-      <div class="right">
-        <p>关注我们</p>
-        <img src="@/assets/image/QRcode.png" alt />
+      <div class="right clearfix">
+        <div class="w-left">
+          <p>关注我们</p>
+          <img src="@/assets/image/QRcode.png" alt />
+        </div>
+        <div class="w-right">
+          <p>分享到：</p>
+          <img src="@/assets/image/WeChat.png" alt />
+        </div>
       </div>
     </div>
   </div>
@@ -39,22 +45,25 @@ export default {
   watch: {},
   //方法集合
   methods: {
-        getData(){
-        var api = "http://www.phonegap100.com/appapi.php?a=getPortalList&catid=20&page=1";
-        this.$http.get(api).then(function (response) {
+    getData() {
+      var api =
+        "http://www.phonegap100.com/appapi.php?a=getPortalList&catid=20&page=1";
+      this.$http.get(api).then(
+        function(response) {
           console.log(response);
           this.list = response.body.result;
-        },function (err) {
+        },
+        function(err) {
           console.log(err);
-        })
         }
-      
+      );
+    }
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {
-        this.getData()
+    // this.getData();
   },
   beforeCreate() {}, //生命周期 - 创建之前
   beforeMount() {}, //生命周期 - 挂载之前
@@ -69,12 +78,13 @@ export default {
 //@import url(); 引入公共css类
 .footer {
   height: 352px;
-  background: #2e3139 url("../assets/image/footer.png") no-repeat center;
+  background: #2e3139 url('../../assets/image/footer.png') no-repeat center;
   position: relative;
   .wrap {
     width: 1240px;
     margin: 0 auto;
     position: relative;
+    height: 100%;
     .left {
       float: left;
       padding-top: 104px;
@@ -118,16 +128,35 @@ export default {
     .right {
       padding-top: 90px;
       float: right;
-      p {
-        text-align: center;
-        font-size: 20px;
-        color: #fff;
-        margin-bottom: 20px;
-        line-height: 20px;
+      .w-left {
+        float: left;
+        p {
+          text-align: center;
+          font-size: 20px;
+          color: #fff;
+          margin-bottom: 20px;
+          line-height: 20px;
+        }
+        img {
+          height: 98px;
+          width: 98px;
+        }
       }
-      img {
-        height: 98px;
-        width: 98px;
+      .w-right {
+        float: left;
+        margin-left: 110px;
+        p {
+          font-size: 20px;
+          color: #fff;
+          text-align: center;
+          margin-bottom: 20px;
+          line-height: 20px;
+        }
+        img {
+          width: 57px;
+          height: 57px;
+          cursor: pointer;
+        }
       }
     }
   }

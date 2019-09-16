@@ -1,97 +1,94 @@
 <!--  -->
 <template>
   <div class="layout">
-    <main>
-      <v-Headers></v-Headers>
-      <div id="carousel">
-        <div class="carousel-wrap">
-          <div class="carousel-box">
-            <ul class="carousel-list">
-              <li v-for="item in imgArr" :key="item.id">
-                <img :src="item.src" alt />
-              </li>
-            </ul>
-          </div>
-          <a class="arrows-prev" v-if="option.prevBtn"></a>
-          <a class="arrows-next" v-if="option.nextBtn"></a>
-          <div class="carousel-circle" v-if="option.circle">
-            <span v-for="(item,i) in imgArr" :key="item.id"></span>
-          </div>
+    <div id="carousel">
+      <div class="carousel-wrap">
+        <div class="carousel-box">
+          <ul class="carousel-list">
+            <li v-for="item in imgArr" :key="item.id">
+              <img :src="item.src" alt />
+            </li>
+          </ul>
+        </div>
+        <a class="arrows-prev" v-if="option.prevBtn"></a>
+        <a class="arrows-next" v-if="option.nextBtn"></a>
+        <div class="carousel-circle" v-if="option.circle">
+          <span v-for="(item,i) in imgArr" :key="item.id"></span>
         </div>
       </div>
-
-      <!-- 值得读 -->
-      <article>
-        <dl class="d-wrap">
-          <dt class="clearfix">
-            <div class="headline">{{List[0].headline}}</div>
-            <div>
-              <dd v-for="(data,j) in List[0].articleList" :key="data.id">{{data.title}}</dd>
-            </div>
-          </dt>
-          <ul class="content clearfix">
-            <li class="v-read" v-for="(data,k) in List[0].articleArrImg" :key="data.id">
-              <div class="v-read-img">
-                <img :src="data.src" alt />
-              </div>
-              <p>{{data.title}}</p>
-            </li>
-          </ul>
-        </dl>
-      </article>
-      <!-- 编辑推荐 -->
-      <article>
-        <dl class="d-wrap">
-          <dt class="clearfix">
-            <div class="headline">{{List[1].headline}}</div>
-            <div>
-              <dd v-for="(data,j) in List[1].articleList" :key="data.id">{{data.title}}</dd>
-            </div>
-          </dt>
-          <ul class="content clearfix">
-            <li class="v-app" v-for="(data,k) in List[1].articleArrImg" :key="data.id">
+    </div>
+    <!-- 值得读 -->
+    <article>
+      <dl class="d-wrap">
+        <dt class="clearfix">
+          <div class="headline">{{List[0].headline}}</div>
+          <div>
+            <dd v-for="(data,j) in List[0].articleList" :key="data.id">{{data.title}}</dd>
+          </div>
+        </dt>
+        <ul class="content clearfix">
+          <li class="v-read" v-for="(data,k) in List[0].articleArrImg" :key="data.id">
+            <div class="v-read-img">
               <img :src="data.src" alt />
-              <dl>
-                <dt class="top clearfix">
-                  <p>{{data.appName}}</p>
-                  <img :src="data.icon" alt />
-                </dt>
-                <dd>{{data.editTitle}}</dd>
-                <dd>{{data.editTitle}}</dd>
-                <span class="btn-title" v-for="(item,o) in data.editz" :key="item.id">{{item}}</span>
-              </dl>
-            </li>
-          </ul>
-        </dl>
-      </article>
-
-      <!-- 合辑 -->
-      <article>
-        <dl class="d-wrap">
-          <dt class="clearfix">
-            <div class="headline">{{List[2].headline}}</div>
-            <div>
-              <dd v-for="(data,j) in List[2].articleList" :key="data.id">{{data.title}}</dd>
             </div>
-          </dt>
-          <ul class="content clearfix">
-            <li
-              class="v-appAll"
-              :style="{background:'url('+data.src+')  no-repeat'}"
-              v-for="(data,k) in List[2].articleArrImg"
-              :key="data.id"
-            >
-              <div>
-                <h3>{{data.listName}}</h3>
-                <p>{{data.explain}}</p>
-                <button>{{data.btn}}</button>
-              </div>
-            </li>
-          </ul>
-        </dl>
-      </article>
-    </main>
-    <v-footers></v-footers>
+            <p class="moreWord">{{data.title}}</p>
+          </li>
+        </ul>
+      </dl>
+    </article>
+    <!-- 编辑推荐 -->
+    <article>
+      <dl class="d-wrap">
+        <dt class="clearfix">
+          <div class="headline">{{List[1].headline}}</div>
+          <div>
+            <dd v-for="(data,j) in List[1].articleList" :key="data.id">{{data.title}}</dd>
+          </div>
+        </dt>
+        <ul class="content clearfix">
+          <li class="v-app" v-for="(data,k) in List[1].articleArrImg" :key="data.id">
+            <img :src="data.src" alt />
+            <dl>
+              <dt class="top clearfix">
+                <p>{{data.appName}}</p>
+                <img :src="data.icon" alt />
+              </dt>
+              <dd class="moreWord" :title="data.editTitle">{{data.editTitle}}</dd>
+              <dd>{{data.editTitle}}</dd>
+              <span class="btn-title" v-for="(item,o) in data.editz" :key="item.id">{{item}}</span>
+            </dl>
+          </li>
+        </ul>
+      </dl>
+    </article>
+
+    <!-- 合辑 -->
+    <article>
+      <dl class="d-wrap">
+        <dt class="clearfix">
+          <div class="headline">{{List[2].headline}}</div>
+          <div>
+            <dd v-for="(data,j) in List[2].articleList" :key="data.id">{{data.title}}</dd>
+          </div>
+        </dt>
+        <ul class="content clearfix">
+          <router-link
+            tag="li"
+            class="v-appAll"
+            v-for="(data,k) in List[2].articleArrImg"
+            :key="data.id"
+            :style="{background:'url('+data.src+')  no-repeat'}"
+            to="/AppCollection"
+          >
+            <div>
+              <h3>{{data.listName}}</h3>
+              <p class="moreWord">{{data.explain}}</p>
+              <button>{{data.btn}}</button>
+            </div>
+          </router-link>
+        </ul>
+      </dl>
+    </article>
   </div>
 </template>
 
@@ -99,9 +96,8 @@
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
 import "@/common/carousel/carousel.js"; //可以选择需要的方法引入
-import Headers from "@/components/headers.vue";
-import Footers from "@/components/footers.vue";
-
+import Headers from "@/components/common/headers.vue";
+import Footers from "@/components/common/footers.vue";
 export default {
   //import引入的组件需要注入到对象中才能使用
   components: {
@@ -293,7 +289,11 @@ export default {
   //监控data中的数据变化
   watch: {},
   //方法集合
-  methods: {},
+  methods: {
+    gocollection(id) {
+      console.log(id);
+    }
+  },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},
   //生命周期 - 挂载完成（可以访问DOM元素）
@@ -323,8 +323,7 @@ $f4: #f4f6f8;
   height: 470px;
   width: 100%;
 }
-main {
-  // margin-bottom: 150px;
+.layout {
   article {
     padding-top: 100px;
     .d-wrap {
@@ -389,6 +388,7 @@ main {
           color: #333;
           line-height: 14px;
           margin: 20px 0 50px 0;
+          width: 400px;
         }
       }
       & > li.v-app {
@@ -428,16 +428,13 @@ main {
             position: relative;
             height: 44px;
             & > p {
-              position: absolute;
-              left: 0;
-              top: 0;
               font-size: 18px;
               color: #333;
+              line-height: 18px;
+              float: left;
             }
             & > img {
-              position: absolute;
-              right: 0;
-              top: 0;
+              float: right;
               height: 34px;
               width: 34px;
             }
