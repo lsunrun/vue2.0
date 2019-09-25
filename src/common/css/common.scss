@@ -111,6 +111,7 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
 .clearfix:after {
   content: ".";
   display: block;
@@ -133,7 +134,7 @@ html {
 }
 body {
   height: 100%;
-  min-width: 1000px;
+  min-width: 1240px;
   font-size: 14px;
   background: #fff;
   color: #555;
@@ -157,13 +158,13 @@ body {
   height: 100%;
 }
 main {
-  overflow: hidden;
   box-sizing: border-box; /*为元素指定的任何内边距和边框都将在已设定的宽度和高度内进行绘制*/
   min-height: 100%;
   // padding-bottom: 352px; /* 滚动内容 */
   // margin-bottom: -352px; /* 底部的高 */
-  padding-bottom: 442px; // 因为把头部放到了main 外面所以是头部加底部
-  margin-bottom: -442px;
+  padding-bottom: 450px; // 因为把头部放到了main 外面所以是头部加底部
+  margin-bottom: -450px;
+  overflow: hidden;
 }
 .layout {
   min-height: 100%;
@@ -189,6 +190,12 @@ main {
   /* autoprefixer: on */
 }
 
+.middle::after {
+  content: "";
+  height: 100%;
+  display: inline-block;
+  vertical-align: middle;
+}
 .modal-open {
   position: fixed;
   height: 100%;
@@ -200,7 +207,7 @@ main {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.4);
   z-index: 10;
 }
 

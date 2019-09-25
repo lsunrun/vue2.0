@@ -18,7 +18,7 @@
       </div>
     </div>
     <!-- 值得读 -->
-    <article>
+    <section>
       <dl class="d-wrap">
         <dt class="clearfix">
           <div class="headline">{{List[0].headline}}</div>
@@ -27,17 +27,23 @@
           </div>
         </dt>
         <ul class="content clearfix">
-          <li class="v-read" v-for="(data,k) in List[0].articleArrImg" :key="data.id">
+          <router-link
+            tag="li"
+            to="/ReadArticle"
+            class="v-read"
+            v-for="(data,k) in List[0].articleArrImg"
+            :key="data.id"
+          >
             <div class="v-read-img">
               <img :src="data.src" alt />
             </div>
             <p class="moreWord">{{data.title}}</p>
-          </li>
+          </router-link>
         </ul>
       </dl>
-    </article>
+    </section>
     <!-- 编辑推荐 -->
-    <article>
+    <section>
       <dl class="d-wrap">
         <dt class="clearfix">
           <div class="headline">{{List[1].headline}}</div>
@@ -46,7 +52,13 @@
           </div>
         </dt>
         <ul class="content clearfix">
-          <li class="v-app" v-for="(data,k) in List[1].articleArrImg" :key="data.id">
+          <router-link
+            tag="li"
+            to="/EditApplet"
+            class="v-app"
+            v-for="(data,k) in List[1].articleArrImg"
+            :key="data.id"
+          >
             <img :src="data.src" alt />
             <dl>
               <dt class="top clearfix">
@@ -57,13 +69,12 @@
               <dd>{{data.editTitle}}</dd>
               <span class="btn-title" v-for="(item,o) in data.editz" :key="item.id">{{item}}</span>
             </dl>
-          </li>
+          </router-link>
         </ul>
       </dl>
-    </article>
-
+    </section>
     <!-- 合辑 -->
-    <article>
+    <section>
       <dl class="d-wrap">
         <dt class="clearfix">
           <div class="headline">{{List[2].headline}}</div>
@@ -88,7 +99,7 @@
           </router-link>
         </ul>
       </dl>
-    </article>
+    </section>
   </div>
 </template>
 
@@ -324,26 +335,31 @@ $f4: #f4f6f8;
   width: 100%;
 }
 .layout {
-  article {
+  section {
     padding-top: 100px;
+    & > :nth-child(2) {
+      padding-top: 50px;
+    }
     .d-wrap {
       width: 1240px;
       margin: 0 auto;
-      dt > div > dd {
-        float: left;
-        padding: 6px 15px;
-        background: #f4f6f8;
-        font-size: 14px;
-        color: #666;
-        border-radius: 50px;
-        margin-right: 10px;
-        cursor: pointer;
-        &:last-of-type {
-          margin-right: 0;
-        }
-        &.active {
-          background: #2878ff;
-          color: #fff;
+      dt.clearfix {
+        & > div > dd {
+          float: left;
+          padding: 6px 15px;
+          background: #f4f6f8;
+          font-size: 14px;
+          color: #666;
+          border-radius: 50px;
+          margin-right: 10px;
+          cursor: pointer;
+          &:last-of-type {
+            margin-right: 0;
+          }
+          &.active {
+            background: #2878ff;
+            color: #fff;
+          }
         }
       }
     }
@@ -366,8 +382,13 @@ $f4: #f4f6f8;
         font-size: 0;
         margin-right: 20px;
         overflow: hidden;
+        width: 400px;
+        padding-top: 50px;
         &:nth-child(3n) {
           margin-right: 0;
+        }
+        &:nth-child(-n + 3) {
+          padding-top: 0;
         }
         .v-read-img {
           overflow: hidden;
@@ -388,7 +409,6 @@ $f4: #f4f6f8;
           color: #333;
           line-height: 14px;
           margin: 20px 0 50px 0;
-          width: 400px;
         }
       }
       & > li.v-app {

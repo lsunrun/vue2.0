@@ -2,10 +2,10 @@
 <template>
   <div class="layout">
     <ul class="tags clearfix">
-      <li class="active">
+      <router-link tag="li" to="/Home" class="active">
         网站主页
         <span>></span>
-      </li>
+      </router-link>
       <li class="active">
         合辑
         <span>></span>
@@ -15,13 +15,12 @@
     <div class="intro clearfix">
       <img src="@/assets/image/info/appc1.png" alt />
       <div class="right clearfix">
-        <div class="headline clearfix">
-          <h3>游戏人生</h3>
+        <h3>
+          游戏人生
           <font>152款小程序</font>
-        </div>
-
+        </h3>
         <p>关于记忆,与其说是我们的过去，不如活着当下</p>
-        <div class="share">
+        <div class="share middle">
           <font>分享：</font>
           <img src="@/assets/image/info/WeChatpage.png" alt />
         </div>
@@ -29,7 +28,7 @@
     </div>
     <div class="v-app">
       <ul class="u-ul clearfix" v-for="arr,i in List">
-        <li v-for="item,j in arr" :key="item.id">
+        <router-link tag="li" to="/MiniProgram" v-for="item,j in arr" :key="item.id">
           <div class="wrap clearfix">
             <img :src="item.src" alt />
             <div class="right">
@@ -41,7 +40,7 @@
             <span v-for="tag,i in item.tag">{{tag}}</span>
             <button class="activeInfo">获取</button>
           </div>
-        </li>
+        </router-link>
       </ul>
     </div>
   </div>
@@ -151,6 +150,8 @@ $f4: #f4f6f8;
     margin-right: 5px;
     color: $c6;
     cursor: pointer;
+    font-size: 14px;
+    line-height: 14px;
     &.active {
       color: $b;
     }
@@ -165,22 +166,18 @@ $f4: #f4f6f8;
   }
   .right {
     margin-left: 420px;
-    .headline {
-      overflow: hidden;
-      margin: 15px 0 20px 0;
-      h3 {
-        font-size: 24px;
-        color: $c3;
-        line-height: 24px;
-        float: left;
-      }
+    h3 {
+      font-size: 24px;
+      color: $c3;
+      line-height: 24px;
+      padding: 15px 0 20px 0;
       font {
         float: right;
         font-size: 14px;
         color: $c3;
-        line-height: 14px;
       }
     }
+
     p {
       font-size: 14px;
       color: $c9;
@@ -188,12 +185,6 @@ $f4: #f4f6f8;
     }
     .share {
       margin-top: 40px;
-      &::after {
-        content: "";
-        height: 100%;
-        display: inline-block;
-        vertical-align: middle;
-      }
       font {
         font-size: 14px;
         color: $c9;
@@ -278,7 +269,7 @@ $f4: #f4f6f8;
           line-height: 24px;
           font-size: 12px;
           margin-right: 10px;
-          &.active {
+          &:hover {
             border: 1px solid $b;
             color: #fff;
             background: $b;

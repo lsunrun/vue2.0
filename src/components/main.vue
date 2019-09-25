@@ -1,11 +1,12 @@
 <!--  -->
 <template>
   <div id="layout">
-    <v-Headers></v-Headers>
+    <v-Headers @isMask="isMask"></v-Headers>
     <main>
-      <router-view></router-view>
+      <router-view @isMask="isMask"></router-view>
     </main>
     <v-footers></v-footers>
+    <div class="m-mask" v-if="mask"></div>
   </div>
 </template>
 
@@ -23,18 +24,29 @@ export default {
   },
   data() {
     //这里存放数据
-    return {};
+    return {
+      mask: false
+    };
   },
   //监听属性 类似于data概念
   computed: {},
   //监控data中的数据变化
   watch: {},
   //方法集合
-  methods: {},
+  methods: {
+    isMask(flag) {
+      // console.log(this.mask);
+      this.mask = flag;
+    }
+  },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},
   //生命周期 - 挂载完成（可以访问DOM元素）
-  mounted() {},
+  mounted() {
+    // this.$router.afterEach((to, from, next) => {
+    //   window.scrollTo(0, 0);
+    // });
+  },
   beforeCreate() {}, //生命周期 - 创建之前
   beforeMount() {}, //生命周期 - 挂载之前
   beforeUpdate() {}, //生命周期 - 更新之前

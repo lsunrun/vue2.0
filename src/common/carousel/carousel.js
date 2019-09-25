@@ -100,6 +100,7 @@
                 } else {
                     elem.totalLi.width(elem.box.width() / 3);
                 }
+
                 elem.totalLi.css({ "margin-right": settings.margin_right });
                 elem.itemWidth = elem.totalLi.outerWidth(true);
                 elem.itemHeight = elem.totalLi.outerHeight(true);
