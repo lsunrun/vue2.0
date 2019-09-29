@@ -21,7 +21,7 @@
       <!-- 正文 -->
       <section class="a-section">
         <dt>流浪地球 特效-----------MORE VX专访</dt>
-        <dd class="count">
+        <dd class="count middle">
           <img src="@/assets/image/info/tiemf.png" alt />
           <span>2019-4-29</span>
           <img src="@/assets/image/info/eye.png" alt />
@@ -37,7 +37,7 @@
             下面例子展示在全局导航守卫中检查元字段：
           </p>
         </div>
-        <div class="i-tag">
+        <div class="i-tag middle">
           <label>标签：</label>
           <span v-for="item in labelList">{{item}}</span>
         </div>
@@ -298,12 +298,6 @@ $f4: #f4f6f8;
     & > .count {
       margin: 30px 0 20px 0;
       font-size: 0;
-      &::after {
-        content: "";
-        display: inline-block;
-        height: 100%;
-        vertical-align: middle;
-      }
       img {
         vertical-align: middle;
         margin-right: 10px;
@@ -323,12 +317,6 @@ $f4: #f4f6f8;
     .i-tag {
       margin-top: 60px;
       margin-bottom: 70px;
-      &::after {
-        content: "";
-        height: 100%;
-        vertical-align: middle;
-        display: inline-block;
-      }
       span {
         display: inline-block;
         border: 1px solid $f4;

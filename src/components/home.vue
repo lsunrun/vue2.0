@@ -115,9 +115,12 @@ export default {
     "v-Headers": Headers,
     "v-footers": Footers
   },
+ 
   data() {
     //这里存放数据
+
     return {
+      isRouterAlive: true,
       List: [
         {
           headline: "值得读",
@@ -303,7 +306,7 @@ export default {
   methods: {
     gocollection(id) {
       console.log(id);
-    }
+    },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},

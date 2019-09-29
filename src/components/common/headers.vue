@@ -1,7 +1,7 @@
 <!--  -->
 <template>
   <div class="header" @mouseleave="mouseleave($event)">
-    <div class="header-wrap">
+    <div class="header-wrap middle">
       <a href>
         <img src="@/assets/image/logo.png" />
       </a>
@@ -20,8 +20,8 @@
             <img class="userImg" :src="useImg" alt />
             <template v-if="userInfoFlag">
               <ul class="user-panel">
-                <li>编辑资料</li>
-                <li>账号安全</li>
+                <li @click="toChildren('editInfo')">编辑资料</li>
+                <li @click="toChildren('editAccount')">账号安全</li>
                 <li>退出</li>
               </ul>
             </template>
@@ -73,6 +73,7 @@ export default {
     //这里存放数据
     return {
       sign: false,
+      userEdit: false,
       login: false,
       userInfoFlag: false,
       useImg: require("@/assets/image/userInfo.png"),
@@ -111,6 +112,13 @@ export default {
       this.userInfoFlag = false;
     },
 
+    toChildren(url) {
+      this.userEdit = this.$route.name.indexOf(url) > -1;
+      if (!this.userEdit) {
+        this.$router.push({ name: url });
+      }
+    },
+
     toSearchInfo() {
       this.sign = this.$route.name.indexOf("Searchs") > -1;
       if (this.sign) {
@@ -132,8 +140,7 @@ export default {
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},
   //生命周期 - 挂载完成（可以访问DOM元素）
-  mounted() {
-  },
+  mounted() {},
   beforeCreate() {}, //生命周期 - 创建之前
   beforeMount() {}, //生命周期 - 挂载之前
   beforeUpdate() {}, //生命周期 - 更新之前
@@ -171,12 +178,7 @@ $a: #aaa;
     width: 1240px;
     position: relative;
     height: 100%;
-    &::after {
-      content: "";
-      height: 100%;
-      display: inline-block;
-      vertical-align: middle;
-    }
+
     & > a {
       display: inline-block;
       vertical-align: middle;
@@ -235,8 +237,8 @@ $a: #aaa;
           height: 194px;
           width: 138px;
           box-sizing: border-box;
-          top: 98px;
-          right: -36px;
+          top: 96px;
+          right: -40px;
           z-index: 12;
           background: #fff;
           box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2);

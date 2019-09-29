@@ -9,7 +9,11 @@ import EditPublicA from '@/components/details/editPublicA'
 import EditApplet from '@/components/details/editApplet'
 import MiniProgram from '@/components/details/miniProgram'
 import ManyArticles from '@/components/details/manyArticles'
+import AccountSecurity from '@/components/userSetting/accountSecurity'
+import InforMation from '@/components/userSetting/information'
+
 import Searchs from '@/components/common/searchs'
+
 import $ from 'jquery'
 import './cssExport'
 import VueResource from 'vue-resource'
@@ -51,19 +55,26 @@ const routes = [
       * 更多文章
       */
       { path: 'ManyArticles', name: 'ManyArticles', component: ManyArticles },
+
       /**
       * 搜素界面
       */
       { path: 'Searchs', name: 'Searchs', component: Searchs },
 
+
+      /**
+      * 账户安全
+      */
+      { path: 'editAccount', name: 'editAccount', component: AccountSecurity },
+
+      /**
+      * 编辑资料
+      */
+      { path: 'editInfo', name: 'editInfo', component: InforMation },
+
     ]
   }
 ]
-
-// const originalPush = Router.prototype.push
-// Router.prototype.push = function push(location) {
-//   return originalPush.call(this, location).catch(err => err)
-// }
 
 
 export default new Router({

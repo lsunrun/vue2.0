@@ -45,19 +45,19 @@ export default {
   watch: {},
   //方法集合
   methods: {
-    getData() {
-      var api =
-        "http://www.phonegap100.com/appapi.php?a=getPortalList&catid=20&page=1";
-      this.$http.get(api).then(
-        function(response) {
-          console.log(response);
-          this.list = response.body.result;
-        },
-        function(err) {
-          console.log(err);
-        }
-      );
-    }
+    // getData() {
+    //   var api =
+    //     "http://www.phonegap100.com/appapi.php?a=getPortalList&catid=20&page=1";
+    //   this.$http.get(api).then(
+    //     function(response) {
+    //       console.log(response);
+    //       this.list = response.body.result;
+    //     },
+    //     function(err) {
+    //       console.log(err);
+    //     }
+    //   );
+    // }
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},

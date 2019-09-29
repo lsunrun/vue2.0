@@ -3,7 +3,7 @@
   <div id="layout">
     <v-Headers @isMask="isMask"></v-Headers>
     <main>
-      <router-view @isMask="isMask"></router-view>
+      <router-view @isMask="isMask" ></router-view>
     </main>
     <v-footers></v-footers>
     <div class="m-mask" v-if="mask"></div>
@@ -22,10 +22,16 @@ export default {
     "v-Headers": Headers,
     "v-footers": Footers
   },
+  //父组件中通过provide来提供变量，在子组件中通过inject来注入变量。
+  provide() {
+    return {
+      reload: this.reload
+    };
+  },
   data() {
     //这里存放数据
     return {
-      mask: false
+      mask: false,
     };
   },
   //监听属性 类似于data概念
@@ -37,7 +43,7 @@ export default {
     isMask(flag) {
       // console.log(this.mask);
       this.mask = flag;
-    }
+    },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},
