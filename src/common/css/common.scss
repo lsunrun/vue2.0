@@ -297,3 +297,26 @@ main {
 }
 
 /* !!!loading */
+
+.s-star span {
+  font-size: 0;
+  display: inline-block;
+  margin-left: 10px;
+  width: 15px;
+  height: 15px;
+  background: url("../../assets/image/notstar.png") no-repeat;
+  background-size: 100% 100%;
+  vertical-align: middle;
+}
+.s-star .stars {
+  background: url("../../assets/image/stars.png") no-repeat;
+}
+
+.s-star .halfstar {
+  background: url("../../assets/image/halfstar.png") no-repeat;
+}
+.s-star font {
+  font-size: 14px;
+  color: #999;
+  vertical-align: middle;
+}

@@ -1,36 +1,33 @@
 <!--  -->
 <template>
-  <div id="layout">
-    <v-Headers @isMask="isMask"></v-Headers>
-    <main>
-      <router-view @isMask="isMask"></router-view>
-    </main>
-    <v-Footers></v-Footers>
-    <div class="m-mask" v-if="mask"></div>
-    <v-Popup></v-Popup>
-  </div>
+  <el-dialog
+    title="提示"
+    :center="true"
+    :visible.sync="popupData.dialogVisible"
+    :destroy-on-close="true"
+    :close-on-click-modal="false"
+    :close-on-press-escape="false"
+  >
+    <span>这是一段信息</span>
+    <!-- <span slot="footer" class="dialog-footer">
+      <el-button @click="popupData.dialogVisible = false">取 消</el-button>
+      <el-button type="primary" @click="popupData.dialogVisible = false">确 定</el-button>
+    </span>-->
+  </el-dialog>
 </template>
 
 <script>
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
-import Headers from "@/components/common/headers.vue";
-import Footers from "@/components/common/footers.vue";
-import Popup from "@/components/common/plugin/popup.vue";
-import vueEvent from "./model/vueEvent";
-
+import vueEvent from "../../model/vueEvent";
 export default {
   //import引入的组件需要注入到对象中才能使用
 
-  components: {
-    "v-Headers": Headers,
-    "v-Footers": Footers,
-    "v-Popup": Popup
-  },
+  components: {},
   data() {
     //这里存放数据
     return {
-      mask: false,
+      popupData: {}
     };
   },
   //监听属性 类似于data概念
@@ -38,16 +35,15 @@ export default {
   //监控data中的数据变化
   watch: {},
   //方法集合
-  methods: {
-    isMask(flag) {
-      // console.log(this.mask);
-      this.mask = flag;
-    }
-  },
+  methods: {},
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {
+    vueEvent.$on("popupDataFun", val => {
+      console.log(val);
+      this.popupData = val;
+    });
   },
   beforeCreate() {}, //生命周期 - 创建之前
   beforeMount() {}, //生命周期 - 挂载之前
@@ -60,4 +56,15 @@ export default {
 </script>
 <style lang='scss' scoped>
 //@import url(); 引入公共css类
+>>> .el-dialog__body {
+  height: 220px;
+  overflow: auto;
+}
+>>> .el-dialog {
+  margin: 0 !important;
+  position: absolute !important;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 </style>

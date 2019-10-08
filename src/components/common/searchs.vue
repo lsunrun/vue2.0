@@ -67,6 +67,7 @@
 //例如：import 《组件名称》 from '《组件路径》';
 import Headers from "@/components/common/headers.vue";
 import Footers from "@/components/common/footers.vue";
+import vueEvent from "../model/vueEvent";
 export default {
   //import引入的组件需要注入到对象中才能使用
   components: {
@@ -183,7 +184,10 @@ export default {
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {
-    console.log(this.$route.params)
+    vueEvent.$off("changeval");
+    vueEvent.$on("changeval", val => {
+      this.searchVal = val;
+    });
   },
   beforeCreate() {}, //生命周期 - 创建之前
   beforeMount() {}, //生命周期 - 挂载之前
@@ -201,6 +205,7 @@ $c6: #666;
 $c3: #333;
 $b: #2878ff;
 $f4: #f4f6f8;
+
 .layout {
   width: 1240px;
   margin: 0 auto;

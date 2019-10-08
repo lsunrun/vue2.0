@@ -66,8 +66,8 @@
                 <img :src="data.icon" alt />
               </dt>
               <dd class="moreWord" :title="data.editTitle">{{data.editTitle}}</dd>
-              <dd>{{data.editTitle}}</dd>
-              <span class="btn-title" v-for="(item,o) in data.editz" :key="item.id">{{item}}</span>
+              <dd class="s-star middle" v-html="data.stars"></dd>
+              <span class="btn-title" v-for="item in data.editz" :key="item.id">{{item}}</span>
             </dl>
           </router-link>
         </ul>
@@ -115,7 +115,7 @@ export default {
     "v-Headers": Headers,
     "v-footers": Footers
   },
- 
+
   data() {
     //这里存放数据
 
@@ -194,7 +194,8 @@ export default {
               appName: "站酷网",
               icon: require("@/assets/image/edwc.png"),
               editTitle: "编辑点评：很火",
-              editz: ["分享", "设计程序"]
+              editz: ["分享", "设计程序"],
+              editStar: 2
             },
             {
               id: 2,
@@ -202,7 +203,8 @@ export default {
               appName: "摩拜单车",
               icon: require("@/assets/image/edac.png"),
               editTitle: "编辑点评：很火",
-              editz: ["分享", "设计程序"]
+              editz: ["分享", "设计程序"],
+              editStar: 4.5
             },
             {
               id: 3,
@@ -210,7 +212,8 @@ export default {
               appName: "美团外卖",
               icon: require("@/assets/image/edwc.png"),
               editTitle: "编辑点评：很火",
-              editz: ["分享", "设计程序"]
+              editz: ["分享", "设计程序"],
+              editStar: 3
             },
             {
               id: 4,
@@ -218,7 +221,8 @@ export default {
               appName: "乘车码",
               icon: require("@/assets/image/edwc.png"),
               editTitle: "编辑点评：很火",
-              editz: ["分享", "设计程序"]
+              editz: ["分享", "设计程序"],
+              editStar: 5
             },
             {
               id: 5,
@@ -226,7 +230,8 @@ export default {
               appName: "玩吧",
               icon: require("@/assets/image/edac.png"),
               editTitle: "编辑点评：很火",
-              editz: ["分享", "设计程序"]
+              editz: ["分享", "设计程序"],
+              editStar: 4
             },
             {
               id: 6,
@@ -234,7 +239,8 @@ export default {
               appName: "每日优鲜",
               icon: require("@/assets/image/edac.png"),
               editTitle: "编辑点评：很火",
-              editz: ["分享", "设计程序"]
+              editz: ["分享", "设计程序"],
+              editStar: 3.5
             }
           ]
         },
@@ -307,9 +313,42 @@ export default {
     gocollection(id) {
       console.log(id);
     },
+    orgStar() {
+      this.List[1].articleArrImg.map(function(val) {
+        var data = val.editStar;
+        let stars = String(data);
+        let starsNum = stars.split(".");
+        let len = 0;
+        let span_star = "",
+          span = "",
+          halfstar = "";
+        if (starsNum.length > 1) {
+          len = 4;
+          halfstar = '<span class="halfstar"></span>';
+        } else {
+          len = 5;
+        }
+        for (let i = 0; i <= len; i++) {
+          if (i == starsNum[0]) {
+            for (let j = 0; j < len; j++) {
+              if (j < starsNum[0]) {
+                span_star += '<span class="stars"></span>';
+              } else {
+                span += "<span></span>";
+              }
+            }
+          }
+        }
+        let starAll = "<font>编辑指数：</font>" + span_star + halfstar + span;
+        val.stars = starAll;
+        console.log(val.stars);
+      });
+    }
   },
   //生命周期 - 创建完成（可以访问当前this实例）
-  created() {},
+  created() {
+    this.orgStar();
+  },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {
     $("#carousel").lxyCarousel(this.option);

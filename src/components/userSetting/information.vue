@@ -3,8 +3,8 @@
   <div class="layout">
     <div class="v-layout">
       <div class="c-header">
-        <h4 class="active">编辑资料</h4>
-        <h4>账户安全</h4>
+        <router-link tag="h4" to="/editInfo" class="active">编辑资料</router-link>
+        <router-link tag="h4" to="/editAccount">账户安全</router-link>
       </div>
       <div class="c-content">
         <div class="u-headerImg">
@@ -49,7 +49,7 @@
           </li>
           <li>
             <p class="br-person">个人简介：</p>
-            <textarea name id maxlength="200" class="t-textarea"></textarea>
+            <textarea name id maxlength="200" class="t-textarea" placeholder="简单介绍一下你自己~"></textarea>
           </li>
         </ul>
         <button>保存</button>
@@ -259,8 +259,11 @@ $f4: #f4f6f8;
 
           .b-birthday {
             height: 36px;
-            & >>> .el-input__inner,& >>> .el-icon-date {
+            & >>> .el-input__inner {
               height: 36px !important;
+            }
+            & >>> .el-icon-date {
+              line-height: 36px !important;
             }
           }
           & > p {

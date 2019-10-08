@@ -7,24 +7,18 @@
       </a>
       <div>
         <i class="searchBtn" :class="search_hover?'active':''" @mouseenter="mouseenter($event)"></i>
-        <template v-if="login">
-          <button>登录</button>
+        <template v-if="loginSign">
+          <button @click="loginFun">登录</button>
           <button>注册</button>
         </template>
         <template v-else>
-          <div
-            class="middle"
-            @mouseenter="mouseenterUser($event)"
-            @mouseleave="mouseleaveUser($event)"
-          >
+          <div class="middle"  @mouseenter="mouseenterUser($event)" @mouseleave="mouseleaveUser($event)" >
             <img class="userImg" :src="useImg" alt />
-            <template v-if="userInfoFlag">
-              <ul class="user-panel">
-                <li @click="toChildren('editInfo')">编辑资料</li>
-                <li @click="toChildren('editAccount')">账号安全</li>
+              <ul class="user-panel" v-if="userInfoFlag">
+                <li @click="toEditData('editInfo')">编辑资料</li>
+                <li @click="toEditData('editAccount')">账号安全</li>
                 <li>退出</li>
               </ul>
-            </template>
           </div>
         </template>
       </div>
@@ -61,10 +55,11 @@
   </div>
 </template>
 
+
 <script>
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
-
+import vueEvent from "../model/vueEvent";
 export default {
   //import引入的组件需要注入到对象中才能使用
   components: {},
@@ -72,10 +67,9 @@ export default {
   data() {
     //这里存放数据
     return {
-      sign: false,
-      userEdit: false,
-      login: false,
+      loginSign: true,
       userInfoFlag: false,
+      popupData: {},
       useImg: require("@/assets/image/userInfo.png"),
       labelList: [
         { id: 1, label: "摩拜单车" },
@@ -92,6 +86,12 @@ export default {
   watch: {},
   //方法集合
   methods: {
+    loginFun() {
+      this.popupData = {
+        dialogVisible: true
+      };
+      vueEvent.$emit("popupDataFun", this.popupData);
+    },
     //显示搜素栏
     mouseenter(event) {
       this.search_hover = true;
@@ -112,19 +112,20 @@ export default {
       this.userInfoFlag = false;
     },
 
-    toChildren(url) {
-      this.userEdit = this.$route.name.indexOf(url) > -1;
-      if (!this.userEdit) {
+    toEditData(url) {
+      let userEdit = this.$route.name.indexOf(url) > -1;
+      if (!userEdit) {
         this.$router.push({ name: url });
       }
+      this.search_hover = false;
+      this.$emit("isMask", false);
+      this.userInfoFlag = false;
     },
-
+    //跳到搜索页面
     toSearchInfo() {
-      this.sign = this.$route.name.indexOf("Searchs") > -1;
-      if (this.sign) {
-        this.$router.push({
-          name: "Home"
-        });
+      let sign = this.$route.name.indexOf("Searchs") > -1;
+      if (sign) {
+        vueEvent.$emit("changeval", this.searchVal);
       } else {
         this.$router.push({
           name: "Searchs",
@@ -144,15 +145,7 @@ export default {
   beforeCreate() {}, //生命周期 - 创建之前
   beforeMount() {}, //生命周期 - 挂载之前
   beforeUpdate() {}, //生命周期 - 更新之前
-  updated() {
-    if (this.sign) {
-      this.sign = false;
-      this.$router.push({
-        name: "Searchs",
-        params: { searchVal: this.searchVal }
-      });
-    }
-  }, //生命周期 - 更新之后
+  updated() {}, //生命周期 - 更新之后
   beforeDestroy() {}, //生命周期 - 销毁之前
   destroyed() {}, //生命周期 - 销毁完成
   activated() {} //如果页面有keep-alive缓存功能，这个函数会触发

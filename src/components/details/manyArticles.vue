@@ -40,14 +40,7 @@
               <article>
                 <dt :title="item.title" class="moreMWord">{{item.title}}</dt>
                 <dd>编辑点评：{{item.remark}}</dd>
-                <dd class="star middle">
-                  <font>编辑指数：</font>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </dd>
+                <dd class="s-star middle" v-html="item.stars"></dd>
               </article>
             </li>
           </ul>
@@ -138,13 +131,15 @@ export default {
           src: require("@/assets/image/b3.png"),
           title: "美团",
           remark: "这样你便可以将参数转换成另一种类型，将静态值与基",
-          see: 3
+          see: 3,
+          editStar: 2
         },
         {
           src: require("@/assets/image/b2.png"),
           title: "玩吧",
           remark: "这样你便可以将参数转换成另一种类型，将静态值与基",
-          see: 4
+          see: 4,
+          editStar: 3.5
         }
       ]
     };
@@ -154,9 +149,43 @@ export default {
   //监控data中的数据变化
   watch: {},
   //方法集合
-  methods: {},
+  methods: {
+    orgStar() {
+      this.dataBottom.map(function(val) {
+        var data = val.editStar;
+        let stars = String(data);
+        let starsNum = stars.split(".");
+        let len = 0;
+        let span_star = "",
+          span = "",
+          halfstar = "";
+        if (starsNum.length > 1) {
+          len = 4;
+          halfstar = '<span class="halfstar"></span>';
+        } else {
+          len = 5;
+        }
+        for (let i = 0; i <= len; i++) {
+          if (i == starsNum[0]) {
+            for (let j = 0; j < len; j++) {
+              if (j < starsNum[0]) {
+                span_star += '<span class="stars"></span>';
+              } else {
+                span += "<span></span>";
+              }
+            }
+          }
+        }
+        let starAll = "<font>编辑指数：</font>" + span_star + halfstar + span;
+        val.stars = starAll;
+        console.log(val.stars);
+      });
+    }
+  },
   //生命周期 - 创建完成（可以访问当前this实例）
-  created() {},
+  created() {
+    this.orgStar();
+  },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {},
   beforeCreate() {}, //生命周期 - 创建之前
@@ -362,31 +391,6 @@ $f4: #f4f6f8;
             margin: 12px 0 20px 0;
             font-size: 14px;
             color: #999;
-          }
-          .star {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            font-size: 0;
-            font {
-              font-size: 14px;
-              color: #999;
-              vertical-align: middle;
-            }
-            span {
-              display: inline-block;
-              vertical-align: middle;
-              margin-right: 10px;
-              width: 15px;
-              height: 15px;
-              background: url("../../assets/image/notstar.png") no-repeat;
-              &.full {
-                background: url("../../assets/image/stars.png") no-repeat;
-              }
-              &.half {
-                background: url("../../assets/image/halfstar.png") no-repeat;
-              }
-            }
           }
         }
       }
