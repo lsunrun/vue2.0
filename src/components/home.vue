@@ -29,7 +29,7 @@
         <ul class="content clearfix">
           <router-link
             tag="li"
-            to="/ReadArticle"
+            :to="{name:'ReadArticle'}"
             class="v-read"
             v-for="(data,k) in List[0].articleArrImg"
             :key="data.id"
@@ -54,7 +54,7 @@
         <ul class="content clearfix">
           <router-link
             tag="li"
-            to="/EditApplet"
+            :to="{name:'EditApplet'}"
             class="v-app"
             v-for="(data,k) in List[1].articleArrImg"
             :key="data.id"
@@ -89,7 +89,7 @@
             v-for="(data,k) in List[2].articleArrImg"
             :key="data.id"
             :style="{background:'url('+data.src+')  no-repeat'}"
-            to="/AppCollection"
+            :to="{name:'AppCollection'}"
           >
             <div>
               <h3>{{data.listName}}</h3>
@@ -341,7 +341,6 @@ export default {
         }
         let starAll = "<font>编辑指数：</font>" + span_star + halfstar + span;
         val.stars = starAll;
-        console.log(val.stars);
       });
     }
   },
@@ -372,11 +371,17 @@ $c6: #666;
 $c3: #333;
 $b: #2878ff;
 $f4: #f4f6f8;
-#carousel {
-  height: 470px;
-  width: 100%;
-}
+// main {
+//   padding-bottom: 650px; // 因为把头部放到了main 外面所以是头部加底部
+//   margin-bottom: -450px;
+// }
+
 .layout {
+  padding-bottom: 30px;
+  #carousel {
+    height: 470px;
+    width: 100%;
+  }
   section {
     padding-top: 100px;
     & > :nth-child(2) {
@@ -399,6 +404,10 @@ $f4: #f4f6f8;
             margin-right: 0;
           }
           &.active {
+            background: #2878ff;
+            color: #fff;
+          }
+          &:hover {
             background: #2878ff;
             color: #fff;
           }

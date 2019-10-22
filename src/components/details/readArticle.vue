@@ -2,7 +2,7 @@
 <template>
   <div class="layout">
     <ul class="tags clearfix">
-      <router-link tag="li" to="/Home" class="active">
+      <router-link tag="li" :to="{name:"Home"}" class="active">
         网站主页
         <span>></span>
       </router-link>
@@ -42,81 +42,14 @@
           <span v-for="item in labelList">{{item}}</span>
         </div>
 
-        <div class="f-favour">
-          <div class="activeFavour">
-            <div class="a-wrap">
-              <img src="@/assets/image/info/commend.png" alt />
-              <p>123165</p>
-            </div>
-          </div>
-          <div class="c-comment">
-            <h3>
-              参与评论
-              <font>(54)</font>
-            </h3>
-            <div>
-              <textarea name id maxlength="500" placeholder="说两句吧..."></textarea>
-              <div class="f-wrap clearfix">
-                <span>500字</span>
-                <button>发表评论</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="hot-comment">
-            <h3>热点评论</h3>
-            <ul class="user-comment clearfix">
-              <li v-for="item,i in comment">
-                <img class="user" :src="item.src" alt />
-                <div class="right">
-                  <p class="moreWord">
-                    {{item.name}}
-                    <span>{{item.time}}小时前</span>
-                  </p>
-                  <p class="moreMWord" :title="item.title">{{item.title}}</p>
-                  <div class="count middle">
-                    <img src="@/assets/image/info/comment_up.png" alt />
-                    <span>{{item.upnum}}</span>
-                    <img src="@/assets/image/info/comment_downx.png" alt />
-                    <span>{{item.downnum}}</span>
-                  </div>
-                </div>
-              </li>
-            </ul>
-            <div class="bar-comment">没有更多评论了</div>
-          </div>
-        </div>
+        <!-- 点赞评论 -->
+        <v-CommentFavour></v-CommentFavour>
       </section>
       <!-- 推荐 -->
       <div class="recommend">
-        <div class="top">
-          <h3>值得读</h3>
-          <ul>
-            <li class="t-li clearfix" v-for="item in dataTop">
-              <img :src="item.src" alt />
-              <article>
-                <dt :title="item.title" class="moreMWord">{{item.title}}</dt>
-                <dd class="count clearfix">
-                  <span>{{item.time}}天前</span>
-                  <span>{{item.see}}人阅读</span>
-                </dd>
-              </article>
-            </li>
-          </ul>
-        </div>
-        <div class="bottom">
-          <h3>小程序推荐</h3>
-          <ul>
-            <li class="b-li clearfix" v-for="item in dataBottom">
-              <img :src="item.src" alt />
-              <article>
-                <dt :title="item.title" class="moreMWord">{{item.title}}</dt>
-                <dd>编辑点评：{{item.remark}}</dd>
-                <dd class="s-star middle" v-html="item.stars"></dd>
-              </article>
-            </li>
-          </ul>
-        </div>
+        <v-Deserve></v-Deserve>
+        <hr />
+        <v-Program></v-Program>
       </div>
     </div>
   </div>
@@ -125,9 +58,17 @@
 <script>
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
+import CommentFavour from "@/components/common/plugin/commentFavour.vue";
+import Deserve from "@/components/common/plugin/deserve.vue";
+import Program from "@/components/common/plugin/program.vue";
+
 export default {
   //import引入的组件需要注入到对象中才能使用
-  components: {},
+  components: {
+    "v-CommentFavour": CommentFavour,
+    "v-Deserve": Deserve,
+    "v-Program": Program
+  },
   data() {
     //这里存放数据
     return {
@@ -166,38 +107,6 @@ export default {
           upnum: 123213,
           downnum: 2123
         }
-      ],
-      dataTop: [
-        {
-          src: require("@/assets/image/info/article1.png"),
-          title:
-            "通过在 Vue 根实例的 router 配置传入 router 实例，下面这些属性成员会被注入到每个子组件。",
-          time: 3,
-          see: 213213
-        },
-        {
-          src: require("@/assets/image/info/article1.png"),
-          title:
-            "通过在 Vue 根实例的 router 配置传入 router 实例，下面这些属性成员会被注入到每个子组件。",
-          time: 3,
-          see: 213213
-        }
-      ],
-      dataBottom: [
-        {
-          src: require("@/assets/image/b3.png"),
-          title: "美团",
-          remark: "这样你便可以将参数转换成另一种类型，将静态值与基",
-          see: 3,
-          editStar: 2
-        },
-        {
-          src: require("@/assets/image/b2.png"),
-          title: "玩吧",
-          remark: "这样你便可以将参数转换成另一种类型，将静态值与基",
-          see: 4,
-          editStar: 3.5
-        }
       ]
     };
   },
@@ -207,41 +116,9 @@ export default {
   watch: {},
   //方法集合
   methods: {
-    orgStar() {
-      this.dataBottom.map(function(val) {
-        var data = val.editStar;
-        let stars = String(data);
-        let starsNum = stars.split(".");
-        let len = 0;
-        let span_star = "",
-          span = "",
-          halfstar = "";
-        if (starsNum.length > 1) {
-          len = 4;
-          halfstar = '<span class="halfstar"></span>';
-        } else {
-          len = 5;
-        }
-        for (let i = 0; i <= len; i++) {
-          if (i == starsNum[0]) {
-            for (let j = 0; j < len; j++) {
-              if (j < starsNum[0]) {
-                span_star += '<span class="stars"></span>';
-              } else {
-                span += "<span></span>";
-              }
-            }
-          }
-        }
-        let starAll = "<font>编辑指数：</font>" + span_star + halfstar + span;
-        val.stars = starAll;
-        console.log(val.stars);
-      });
-    }
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {
-    this.orgStar();
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {},
@@ -503,89 +380,8 @@ $f4: #f4f6f8;
   .recommend {
     float: left;
     width: 375px;
-    h3 {
-      font-size: 24px;
-      line-height: 24px;
-      color: #333;
-      margin-bottom: 30px;
-    }
-
-    .top {
-      ul {
-        padding-bottom: 50px;
-        border-bottom: 1px solid #eceff2;
-        .t-li {
-          margin-bottom: 30px;
-          height: 90px;
-          cursor: pointer;
-          &:last-of-type {
-            margin-bottom: 0;
-          }
-          img {
-            float: left;
-          }
-          article {
-            position: relative;
-            margin-left: 144px;
-            height: 100%;
-            dt {
-              font-size: 16px;
-              color: #333;
-              line-height: 22px;
-            }
-            .count {
-              position: absolute;
-              bottom: 0;
-              width: 100%;
-              span {
-                font-size: 14px;
-                color: #999;
-                line-height: 14px;
-                float: left;
-                &:nth-of-type(2) {
-                  float: right;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    .bottom {
-      margin-top: 50px;
-      ul {
-        .b-li {
-          margin-bottom: 36px;
-          height: 110px;
-          cursor: pointer;
-          &:last-of-type {
-            margin-bottom: 0;
-          }
-          img {
-            float: left;
-            width: 110px;
-            height: 110px;
-            border: 1px solid #f4f6f8;
-            box-sizing: border-box;
-            border-radius: 10px;
-          }
-          article {
-            margin-left: 140px;
-            position: relative;
-            height: 100%;
-            dt {
-              font-size: 18px;
-              color: #333;
-              line-height: 18px;
-            }
-            dd:nth-of-type(1) {
-              margin: 12px 0 20px 0;
-              font-size: 14px;
-              color: #999;
-            }
-          }
-        }
-      }
+    hr {
+      margin: 50px 0;
     }
   }
 }

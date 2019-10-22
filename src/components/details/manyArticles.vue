@@ -2,7 +2,7 @@
 <template>
   <div class="layout">
     <ul class="tags clearfix">
-      <router-link tag="li" to="/Home" class="active">
+      <router-link tag="li" :to="{name:"Home"}" class="active">
         网站主页
         <span>></span>
       </router-link>
@@ -178,7 +178,6 @@ export default {
         }
         let starAll = "<font>编辑指数：</font>" + span_star + halfstar + span;
         val.stars = starAll;
-        console.log(val.stars);
       });
     }
   },

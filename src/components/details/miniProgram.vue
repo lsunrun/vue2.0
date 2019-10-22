@@ -2,7 +2,7 @@
 <template>
   <div class="layout">
     <ul class="tags clearfix">
-      <router-link tag="li" to="/Home" class="active">
+      <router-link tag="li" :to="{name:"Home"}" class="active">
         网站主页
         <span>></span>
       </router-link>
@@ -65,50 +65,8 @@
           </div>
         </div>
 
-        <div class="f-favour">
-          <div class="activeFavour">
-            <div class="a-wrap">
-              <img src="@/assets/image/info/commend.png" alt />
-              <p>123165</p>
-            </div>
-          </div>
-          <div class="c-comment">
-            <h3>
-              参与评论
-              <font>(54)</font>
-            </h3>
-            <div>
-              <textarea name id maxlength="500" placeholder="说两句吧..."></textarea>
-              <div class="f-wrap clearfix">
-                <span>500字</span>
-                <button>发表评论</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="hot-comment">
-            <h3>热点评论</h3>
-            <ul class="user-comment clearfix">
-              <li v-for="item,i in comment">
-                <img class="user" :src="item.src" alt />
-                <div class="right">
-                  <p class="moreWord">
-                    {{item.name}}
-                    <span>{{item.time}}小时前</span>
-                  </p>
-                  <p class="moreMWord" :title="item.title">{{item.title}}</p>
-                  <div class="count middle">
-                    <img src="@/assets/image/info/comment_up.png" alt />
-                    <span>{{item.upnum}}</span>
-                    <img src="@/assets/image/info/comment_downx.png" alt />
-                    <span>{{item.downnum}}</span>
-                  </div>
-                </div>
-              </li>
-            </ul>
-            <div class="bar-comment">没有更多评论了</div>
-          </div>
-        </div>
+        <!-- 点赞评论 -->
+        <v-CommentFavour></v-CommentFavour>
       </section>
       <!-- 推荐 -->
       <div class="recommend">
@@ -148,9 +106,12 @@
 <script>
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
+import CommentFavour from "@/components/common/plugin/commentFavour.vue";
 export default {
   //import引入的组件需要注入到对象中才能使用
-  components: {},
+  components: {
+    "v-CommentFavour": CommentFavour
+  },
   data() {
     //这里存放数据
     return {
@@ -212,14 +173,14 @@ export default {
           title: "美团",
           remark: "这样你便可以将参数转换成另一种类型，将静态值与基",
           see: 3,
-          editStar:3,
+          editStar: 3
         },
         {
           src: require("@/assets/image/b2.png"),
           title: "玩吧",
           remark: "这样你便可以将参数转换成另一种类型，将静态值与基",
           see: 4,
-          editStar:3.5,
+          editStar: 3.5
         }
       ]
     };
@@ -258,13 +219,12 @@ export default {
         }
         let starAll = "<font>编辑指数：</font>" + span_star + halfstar + span;
         val.stars = starAll;
-        console.log(val.stars);
       });
     }
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {
-     this.orgStar() 
+    this.orgStar();
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {},

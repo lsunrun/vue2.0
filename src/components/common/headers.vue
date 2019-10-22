@@ -2,9 +2,9 @@
 <template>
   <div class="header" @mouseleave="mouseleave($event)">
     <div class="header-wrap middle">
-      <a href>
+      <router-link tag="a" to="/Home">
         <img src="@/assets/image/logo.png" />
-      </a>
+      </router-link>
       <div>
         <i class="searchBtn" :class="search_hover?'active':''" @mouseenter="mouseenter($event)"></i>
         <template v-if="loginSign">
@@ -12,13 +12,17 @@
           <button>注册</button>
         </template>
         <template v-else>
-          <div class="middle"  @mouseenter="mouseenterUser($event)" @mouseleave="mouseleaveUser($event)" >
+          <div
+            class="middle"
+            @mouseenter="mouseenterUser($event)"
+            @mouseleave="mouseleaveUser($event)"
+          >
             <img class="userImg" :src="useImg" alt />
-              <ul class="user-panel" v-if="userInfoFlag">
-                <li @click="toEditData('editInfo')">编辑资料</li>
-                <li @click="toEditData('editAccount')">账号安全</li>
-                <li>退出</li>
-              </ul>
+            <ul class="user-panel" v-if="userInfoFlag">
+              <li @click="toEditData('editInfo')">编辑资料</li>
+              <li @click="toEditData('editAccount')">账号安全</li>
+              <li>退出</li>
+            </ul>
           </div>
         </template>
       </div>
@@ -69,7 +73,6 @@ export default {
     return {
       loginSign: true,
       userInfoFlag: false,
-      popupData: {},
       useImg: require("@/assets/image/userInfo.png"),
       labelList: [
         { id: 1, label: "摩拜单车" },
@@ -87,10 +90,17 @@ export default {
   //方法集合
   methods: {
     loginFun() {
-      this.popupData = {
-        dialogVisible: true
+      var obj = {
+        dialogVisible: true,
+        popupData: {
+          dialogVisible: true,
+          width: "565px",
+          title: "登录",
+          userLogin: true
+        }
       };
-      vueEvent.$emit("popupDataFun", this.popupData);
+
+      vueEvent.$emit("popupDataFun", obj);
     },
     //显示搜素栏
     mouseenter(event) {

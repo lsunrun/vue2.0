@@ -2,8 +2,11 @@
 <template>
   <div id="layout">
     <v-Headers @isMask="isMask"></v-Headers>
+    <!-- <v-Navigation v-if="mask" :navTab="navTab"></v-Navigation> -->
     <main>
-      <router-view @isMask="isMask"></router-view>
+      <transition name="component-fade" mode="out-in">
+        <router-view @isMask="isMask"></router-view>
+      </transition>
     </main>
     <v-Footers></v-Footers>
     <div class="m-mask" v-if="mask"></div>
@@ -18,6 +21,7 @@ import Headers from "@/components/common/headers.vue";
 import Footers from "@/components/common/footers.vue";
 import Popup from "@/components/common/plugin/popup.vue";
 import vueEvent from "./model/vueEvent";
+import Navigation from "@/components/common/plugin/navigation.vue";
 
 export default {
   //import引入的组件需要注入到对象中才能使用
@@ -25,30 +29,48 @@ export default {
   components: {
     "v-Headers": Headers,
     "v-Footers": Footers,
-    "v-Popup": Popup
+    "v-Popup": Popup,
+    "v-Navigation": Navigation
   },
   data() {
     //这里存放数据
     return {
       mask: false,
+      navTab: [],
+      historyUrl: [],
+      routerArr: [
+        "Home",
+        "AppCollection",
+        "ReadArticle",
+        "EditApplet",
+        "EditPublicA",
+        "MiniProgram", //三级页面
+        "ManyArticles"
+      ]
     };
   },
   //监听属性 类似于data概念
   computed: {},
   //监控data中的数据变化
-  watch: {},
+  watch: {
+  },
   //方法集合
   methods: {
     isMask(flag) {
       // console.log(this.mask);
       this.mask = flag;
+    },
+    navTabFun(navTab) {
+      this.navTab = navTab;
     }
   },
   //生命周期 - 创建完成（可以访问当前this实例）
-  created() {},
-  //生命周期 - 挂载完成（可以访问DOM元素）
-  mounted() {
+  created() {
+      console.log(1);
+
   },
+  //生命周期 - 挂载完成（可以访问DOM元素）
+  mounted() {},
   beforeCreate() {}, //生命周期 - 创建之前
   beforeMount() {}, //生命周期 - 挂载之前
   beforeUpdate() {}, //生命周期 - 更新之前
@@ -60,4 +82,12 @@ export default {
 </script>
 <style lang='scss' scoped>
 //@import url(); 引入公共css类
+.component-fade-enter-active,
+.component-fade-leave-active {
+  transition: opacity 0.24s ease;
+}
+.component-fade-enter, .component-fade-leave-to
+/* .component-fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 </style>

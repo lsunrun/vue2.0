@@ -3,8 +3,8 @@
   <div class="layout">
     <div class="v-layout">
       <div class="c-header">
-        <router-link tag="h4" to="/editInfo" class="active">编辑资料</router-link>
-        <router-link tag="h4" to="/editAccount">账户安全</router-link>
+        <router-link tag="h4" to="editInfo" class="active">编辑资料</router-link>
+        <router-link tag="h4" to="editAccount">账户安全</router-link>
       </div>
       <div class="c-content">
         <div class="u-headerImg">

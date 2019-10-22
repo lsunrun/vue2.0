@@ -27,7 +27,7 @@
     <div class="v-app">
       <template v-if="switchIndex">
         <ul class="u-ul clearfix" v-for="arr,i in List">
-          <router-link tag="li" to="/MiniProgram" v-for="item,j in arr" :key="item.id">
+          <router-link tag="li" to="Home/MiniProgram" v-for="item,j in arr" :key="item.id">
             <div class="wrap clearfix">
               <img :src="item.src" alt />
               <div class="right">
@@ -46,7 +46,7 @@
         <ul class="r-ul clearfix">
           <router-link
             tag="li"
-            to="/ReadArticle"
+            to="Home/ReadArticle"
             class="v-read"
             v-for="(data,k) in articleArrImg"
             :key="data.id"

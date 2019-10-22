@@ -24,43 +24,43 @@ Vue.use(Router)
 
 
 const routes = [
+  { path: '', component: Main, redirect: 'Home' },
   {
     /**
      * 重定向到子页面home
      */
-    path: '/', name: 'Main', component: Main, redirect: 'Home',
+    path: '/', component: Main,
     children: [
       { path: 'Home', name: 'Home', component: Home },
       /**
       * 从home合辑进入显示
       */
-      { path: 'AppCollection', name: 'AppCollection', component: AppCollection },
+      { path: 'Home/AppCollection', name: 'AppCollection', component: AppCollection },
       /**
       * 从home值得读里面进入显示
       */
-      { path: 'ReadArticle', name: 'ReadArticle', component: ReadArticle },
+      { path: 'Home/ReadArticle', name: 'ReadArticle', component: ReadArticle },
       /**
       * 从home编辑里面进入显示
       */
-      { path: 'EditApplet', name: 'EditApplet', component: EditApplet },
+      { path: 'Home/EditApplet', name: 'EditApplet', component: EditApplet },
       /**
       * 从home编辑里面进入显示
       */
-      { path: 'EditPublicA', name: 'EditPublicA', component: EditPublicA },
+      { path: 'Home/EditPublicA', name: 'EditPublicA', component: EditPublicA },
       /**
        * 从合辑的详情里面进入显示
        */
-      { path: 'MiniProgram', name: 'MiniProgram', component: MiniProgram },
+      { path: 'Home/MiniProgram', name: 'MiniProgram', component: MiniProgram },
       /**
       * 更多文章
       */
-      { path: 'ManyArticles', name: 'ManyArticles', component: ManyArticles },
+      { path: 'Home/ManyArticles', name: 'ManyArticles', component: ManyArticles },
 
       /**
       * 搜素界面
       */
       { path: 'Searchs', name: 'Searchs', component: Searchs },
-
 
       /**
       * 账户安全
@@ -73,14 +73,13 @@ const routes = [
       { path: 'editInfo', name: 'editInfo', component: InforMation },
 
     ]
-  }
+  },
 ]
-
-
 export default new Router({
   routes,
   scrollBehavior(to, from, savedPosition) {
     // return 期望滚动到哪个的位置
     return { x: 0, y: 0 }
-  }
+  },
+  
 })

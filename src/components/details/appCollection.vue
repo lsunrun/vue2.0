@@ -28,7 +28,7 @@
     </div>
     <div class="v-app">
       <ul class="u-ul clearfix" v-for="arr,i in List">
-        <router-link tag="li" to="/MiniProgram" v-for="item,j in arr" :key="item.id">
+        <router-link tag="li" to="/Home/MiniProgram" v-for="item,j in arr" :key="item.id">
           <div class="wrap clearfix">
             <img :src="item.src" alt />
             <div class="right">
@@ -119,7 +119,6 @@ export default {
       data.push(this.List.splice(0, 3));
     }
     this.List = data;
-    console.log(this.List);
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {},

@@ -162,7 +162,9 @@ main {
   min-height: 100%;
   // padding-bottom: 352px; /* 滚动内容 */
   // margin-bottom: -352px; /* 底部的高 */
-  padding-bottom: 450px; // 因为把头部放到了main 外面所以是头部加底部
+  // padding-bottom: 480px; // 因为把头部放到了main 外面所以是头部加底部 + nav
+  // margin-bottom: -480px;
+  padding-bottom: 450px; 
   margin-bottom: -450px;
   overflow: hidden;
 }
@@ -199,6 +201,10 @@ main {
 .modal-open {
   position: fixed;
   height: 100%;
+}
+hr {
+  border: none;
+  border-top: 1px solid #eceff2;
 }
 
 .m-mask {
